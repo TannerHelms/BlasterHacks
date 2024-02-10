@@ -3,16 +3,29 @@ import styles from "./sign_in.module.css"
 import Input from "../inputs/input"
 import Button from "../button/button"
 
-export default function SignIn({ signInFunc }) {
-    const [username, setUsername] = useState('');
-    const [password, setPassowrd] = useState('');
+export default function SignIn({ signInFunc, signUpFunc }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleSignIn() {
+        signInFunc(email, password)
+    }
+
+    function handleEmail(email) {
+        setEmail(email)
+    }
+
+    function handlePassword(password) {
+        setPassword(password)
+    }
 
     return (
         <div className={`${styles.sign_in}`}>
             <h1>Log In</h1>
-            <Input text='Username' placeholder='Enter Username'></Input>
-            <Input text='Password' placeholder='Enter Password'></Input>
-            <Button text='Log In' onClickFunc={signInFunc}></Button>
+            <Input text='Email' placeholder='Enter Email' onChangeFunc={handleEmail}></Input>
+            <Input text='Password' inputType="password" placeholder='Enter Password' onChangeFunc={handlePassword}></Input>
+            <p onClick={signUpFunc}>Dont have an account? Sign up</p>
+            <Button text='Log In' onClickFunc={handleSignIn}></Button>
         </div>
     )
 }
