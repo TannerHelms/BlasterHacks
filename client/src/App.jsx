@@ -1,33 +1,26 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { io } from "socket.io-client";
-import { Quote } from "./requests/quote.js";
-import { useGeo } from "./hooks/geoFunc.js";
-import { useSearch } from "./hooks/textSearchFunc.js";
-import { TextSearch } from "./requests/textSearch";
-function App() {
-  const { location, fetchData } = useGeo();
-  const { search, fetchSearchData } = useSearch(location);
+import SignIn from "./componets/signIn/sign_in.jsx";
+import Home from "./componets/home/home.jsx";
+import NavBar from "./componets/navBar/navbar.jsx";
 
-  const searchButtonClick = () => {
-    fetchSearchData();
-  };
+function App() {
+  const [signIn, setSignIn] = useState(true);
+  const [home, setHome] = useState(false);
+  const [navBar, setNavBar] = useState(false);
+
+  function handleLogIn() {
+    setSignIn(false);
+    setHome(true);
+    setNavBar(true);
+  }
 
   return (
     <>
-      <p>hello, world</p>
-      <div>
-        <h2> HOMELESS SHELTERS</h2>
-        <ul>
-          {search.places.map((place, index) => (
-            <li key={index}>
-              <p>Name: {place.displayName.text}</p>
-              <p>Address: {place.formattedAddress}</p>
-              <p>Language Code: {place.languageCode}</p>
-            </li>
-          ))}
-        </ul>
-        <button onClick={searchButtonClick}> Get Shelters</button>
+      <div className="main">
+        {signIn ? <SignIn signInFunc={handleLogIn}></SignIn> : []}
+        {home ? <Home></Home> : []}
+        {navBar ? <NavBar></NavBar> : []}
       </div>
     </>
   );
