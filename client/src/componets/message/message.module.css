@@ -1,0 +1,29 @@
+.message {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: rgba(177, 177, 177, 0.5);
+    text-align: left;
+    margin: 10px;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.message p {
+    margin: 0;
+}
+
+.uname {
+    color: blue;
+}
+
+.first {
+    display: flex;
+    width: 80%;
+}
+
+.second {
+    text-align: right;
+    width: 100%;
+    color: blue;
+}

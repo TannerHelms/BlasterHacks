@@ -8,8 +8,7 @@ import * as firebase from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import SignUp from './componets/signUp/sign_up.jsx';
 import Notification from "./componets/notification/notification.jsx";
-
-
+import Chat from "./componets/chat/chat.jsx";
 
 
 function App() {
@@ -20,6 +19,8 @@ function App() {
   const { location, fetchData } = useGeo();
   const [notification, setNotification] = useState('')
   const [userEmail, setUserEmail] = useState()
+  const [chat, setChat] = useState()
+
 
   function handleLogIn() {
     setSignIn(false);
@@ -77,8 +78,14 @@ function App() {
   }
 
   const NavClicks = {
-    'home': () => console.log('Home'),
-    'chat': () => console.log('Chat'),
+    'home': () => {
+      setChat(false)
+      setHome(true)
+    },
+    'chat': () => {
+      setChat(true)
+      setHome(false)
+    },
     'shelters': () => console.log('Shelters'),
     'hospitals': () => console.log('Hospitals'),
     'account': () => console.log('Account'),
@@ -104,6 +111,7 @@ function App() {
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={handleSignUpBack}></SignUp> : []}
         {home ? <Home></Home> : []}
+        {chat ? <Chat userEmail={userEmail}></Chat> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div>
     </>
