@@ -8,18 +8,16 @@ export default function SignIn({ signInFunc, signUpFunc }) {
     const [password, setPassword] = useState('');
 
     useEffect(() => {
+        function handleKeyDown(e) {
+            if (e.keyCode === 13) {
+                signInFunc(email, password)
+            }
+        }
         window.addEventListener('keydown', handleKeyDown)
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
         }
-    }, [])
-
-    const handleKeyDown = event => {
-        const { key, keyCode } = event;
-        if (keyCode === 13) {
-            handleSignIn();
-        }
-    }
+    }, [email, password, signInFunc])
 
     function handleSignIn() {
         signInFunc(email, password)
