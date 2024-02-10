@@ -24,10 +24,15 @@ app.use((req, res, next) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('user connected');
 
   socket.on('username', (data) => {
+    console.log(`${data} joined the chat`)
     const currentTime = new Date().toLocaleTimeString();
+    socket.broadcast.emit('join', {
+      "username": "Server",
+      "message": `${data} joined the chat`,
+      "timestamp": currentTime,
+    })
     io.emit('message', {
       "username": "Server",
       "message": `${data} joined the chat`,

@@ -16,6 +16,9 @@
         slideUp 2s 3s 1 forwards;
 }
 
+.hidden {
+    visibility: none;
+}
 
 .notification span {
     color: black;

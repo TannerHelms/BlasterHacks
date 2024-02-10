@@ -1,8 +1,12 @@
 .chat {
     height: 90svh;
+    width: 95%;
+    margin: auto;
+
 }
 
 .messageContainer {
     height: 80%;
     overflow-y: auto;
+    scrollbar-width: thin;
 }

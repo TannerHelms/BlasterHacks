@@ -10,6 +10,7 @@ import SignUp from './componets/signUp/sign_up.jsx';
 import Notification from "./componets/notification/notification.jsx";
 import Chat from "./componets/chat/chat.jsx";
 import Shelters from "./componets/shelters/shelters.jsx";
+import { io } from "socket.io-client"
 
 
 function App() {
@@ -20,8 +21,11 @@ function App() {
   const [shelters, setShelters] = useState(false)
   const [hospitals, setHospitals] = useState(false)
   const [navBar, setNavBar] = useState(false)
-  const [notification, setNotification] = useState('')
-  const [userEmail, setUserEmail] = useState()
+  const [notification, setNotification] = useState()
+  const [userEmail, setUserEmail] = useState('')
+  const [socket, setSocket] = useState()
+
+
 
 
   // List of state setters for every page within the application
@@ -36,12 +40,29 @@ function App() {
         navSwitch('home')
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         setNotification(`Failed to login: ${error.message}`)
       });
-
   }
+
+
+  useEffect(() => {
+    const s = io();
+    setSocket(s);
+    return () => {
+      s.disconnect();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+    const callback = (data) => {
+      var user = userEmail.split('@')[0]
+      var message = data.message;
+      if (message.includes(user)) return;
+      setNotification(`${data.message} - ${data.timestamp}`);
+    }
+    socket.on('join', callback)
+  }, [socket]);
 
   function handleSignUpNotification(text) {
     if (text == "Account Created Successfully") {
