@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useGeo } from "../hooks/geoFunc";
 
 export async function TextSearch(location) {
   const url = "https://places.googleapis.com/v1/places:searchText";
@@ -12,7 +10,7 @@ export async function TextSearch(location) {
   const headers = {
     "Content-Type": "application/json",
     "X-Goog-FieldMask":
-      "places.displayName,places.formattedAddress,places.priceLevel",
+      "places.displayName,places.formattedAddress,places.location",
     "X-Goog-Api-Key": "AIzaSyCjEOMJ2ztU5Ne3rGD2kSVXBmrasLVcuiY",
   };
 
