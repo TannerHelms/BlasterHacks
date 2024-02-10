@@ -1,48 +1,36 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import { engine } from 'express-handlebars';
 import { createServer } from "node:http";
-import { Server } from "socket.io";
 import fs from "fs";
 import * as dotenv from "dotenv";
-dotenv.config();
+import * as admin from 'firebase-admin';
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-let COUNT = 0;
+
+dotenv.config();
+const firebaseConfig = {
+  apiKey: "AIzaSyBJdLYa4olp-Dfina4k-xmzXj0HUbm5hOQ",
+  authDomain: "blasterhacks-4bafc.firebaseapp.com",
+  projectId: "blasterhacks-4bafc",
+  storageBucket: "blasterhacks-4bafc.appspot.com",
+  messagingSenderId: "221887971719",
+  appId: "1:221887971719:web:0429c692f85bd7c7d9d322",
+  measurementId: "G-0MBSGDVNYY"
+};
+
+//const analytics = getAnalytics(app);
 
 const DEBUG = process.env.NODE_ENV !== "production";
 const MANIFEST: Record<string, any> = DEBUG ? {} : JSON.parse(fs.readFileSync("static/.vite/manifest.json").toString())
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
-
-io.on("connection", (socket) => {
-  console.log("Connection recieved!");
-
-  socket.emit("new state", COUNT);
-  socket.id
-  socket.on("disconnect", () => {
-    console.log("Client disconnected!")
-  });
-
-  socket.on("increment", (data) => {
-    COUNT++;
-    io.emit("new state", COUNT);
-  });
-
-  socket.on("quote", (data) => {
-    console.log("quote requested");
-    socket.broadcast.emit("notification", "User requested a quote");
-  })
-
-  socket.on("decrement", () => {
-    COUNT--;
-    io.emit("new state", COUNT);
-  });
-});
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
+app.use(express.json())
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`)
@@ -73,12 +61,21 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/random_number", (req, res) => {
-  res.json({ number: Math.random() * 1000 });
-});
+app.post("/auth", (req, res) => {
+  var request = req.body
+  var username = request['uname']
+  var password = request['pass']
+
+  console.log(password)
+  res.send({
+    "response": "authentication"
+  });
+})
 
 server.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.ASSET_URL?.split(":5173")[0]}:${process.env.PORT}...`);
 });
+
+
 
 
