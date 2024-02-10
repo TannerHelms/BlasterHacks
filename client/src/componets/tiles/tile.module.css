@@ -1,0 +1,29 @@
+.tile_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the min and max width as needed */
+    gap: 20px; /* Adjust the gap between grid items */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.tile {
+    background-color: white;
+    padding: 10px;
+    width: fit-content;
+    height: fit-content;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tileHeader {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.border {
+    border-bottom: 2px solid gray;
+}
+
+.tileAddress {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
