@@ -10,7 +10,6 @@
     cursor: pointer;
     transition: border-color 0.25s;
     display: block;
-    margin: 10px;
     width: 100%;
 }
 

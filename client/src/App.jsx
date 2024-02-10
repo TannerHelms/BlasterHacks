@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { io } from "socket.io-client";
-import Button from "./componets/button/button"
-import { Quote } from "./requests/quote.js"
-function App() {
+import SignIn from "./componets/signIn/sign_in.jsx";
+import Home from "./componets/home/home.jsx";
+import NavBar from "./componets/navBar/navBar.jsx";
 
+function App() {
+  const [signIn, setSignIn] = useState(true)
+  const [home, setHome] = useState(false)
+  const [navBar, setNavBar] = useState(false)
+
+  function handleLogIn() {
+    setSignIn(false)
+    setHome(true)
+    setNavBar(true)
+  }
 
   return (
     <>
-      <p>hello, world</p>
+      <div className="main">
+        {signIn ? <SignIn signInFunc={handleLogIn}></SignIn> : []}
+        {home ? <Home></Home> : []}
+        {navBar ? <NavBar></NavBar> : []}
+      </div>
     </>
   )
 }
