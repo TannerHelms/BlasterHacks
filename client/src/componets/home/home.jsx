@@ -31,7 +31,7 @@ export default function Home() {
                 <h2> HOMELESS SHELTERS</h2>
                 <ul>
                     {search.places.map((place, index) => (
-                        <Tile key={index} name={place.displayName.text} formattedAddress={place.formattedAddress} longitude={place.location.longitude} latitude={place.location.latitude} distance={place.distance} />
+                        <Tile key={index} placeIndex={place} />
                     ))}
                 </ul>
                 {clicked ? "" : <button onClick={searchButtonClick}> Get Shelters</button>}
