@@ -16,9 +16,15 @@ function App() {
   const [signIn, setSignIn] = useState(true)
   const [signUp, setSignUp] = useState(false)
   const [home, setHome] = useState(false)
+  const [chat, setChat] = useState(false)
+  const [shelters, setShelters] = useState(false)
+  const [hospitals, setHospitals] = useState(false)
   const [navBar, setNavBar] = useState(false)
   const { location, fetchData } = useGeo();
   const [notification, setNotification] = useState('')
+
+  // List of state setters for every page within the application
+  const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar];
 
   function handleLogIn() {
     setSignIn(false);
@@ -74,13 +80,62 @@ function App() {
     }
   }
 
+  function navSwitch(page) {
+    switch (page) {
+      case 'home':
+        setPages.forEach((set) => {
+          (set === setHome || set === setNavBar)
+            ? set(true)
+            : set(false)
+        });
+        break;
+      case 'chat':
+        setPages.forEach((set) => {
+          (set === setChat || set === setNavBar)
+            ? set(true)
+            : set(false)
+        });
+        break;
+      case 'shelters':
+        setPages.forEach((set) => {
+          (set === setShelters || set === setNavBar)
+            ? set(true)
+            : set(false)
+        });
+        break;
+      case 'hospitals':
+        setPages.forEach((set) => {
+          (set === setHospitals || set === setNavBar)
+            ? set(true)
+            : set(false)
+        });
+        break;
+      case 'signIn':
+        setPages.forEach((set) => {
+          (set === setSignIn)
+            ? set(true)
+            : set(false)
+        });
+        break;
+      case 'signUp':
+        setPages.forEach((set) => {
+          (set === setSignUp)
+            ? set(true)
+            : set(false)
+        });
+        break;
+      default:
+        break;
+    }
+  }
+  
   const NavClicks = {
-    'home': () => console.log('Home'),
-    'chat': () => console.log('Chat'),
-    'shelters': () => console.log('Shelters'),
-    'hospitals': () => console.log('Hospitals'),
-    'account': () => console.log('Account'),
-    'sign-out': handleSignOut,
+    'home': () => navSwitch('home'),
+    'chat': () => navSwitch('chat'),
+    'shelters': () => navSwitch('shelters'),
+    'hospitals': () => navSwitch('hospitals'),
+    'account': () => navSwitch('account'),
+    'sign-out': () => navSwitch('signIn'),
   };
 
 
