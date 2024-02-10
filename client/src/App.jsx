@@ -36,6 +36,13 @@ function App() {
     setSignUp(false)
   }
 
+  function handleSignOut() {
+    setSignIn(true);
+    setSignUp(false);
+    setHome(false);
+    setNavBar(false);
+  }
+
   const handleButtonClick = () => {
     fetchData();
   };
@@ -67,6 +74,15 @@ function App() {
     }
   }
 
+  const NavClicks = {
+    'home': () => console.log('Home'),
+    'chat': () => console.log('Chat'),
+    'shelters': () => console.log('Shelters'),
+    'hospitals': () => console.log('Hospitals'),
+    'account': () => console.log('Account'),
+    'sign-out': handleSignOut,
+  };
+
 
   const html = (
     < div >
@@ -86,7 +102,7 @@ function App() {
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={handleSignUpBack}></SignUp> : []}
         {home ? <Home></Home> : []}
-        {navBar ? <NavBar></NavBar> : []}
+        {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div>
     </>
   );
