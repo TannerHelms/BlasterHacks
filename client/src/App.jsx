@@ -24,37 +24,12 @@ function App() {
   // List of state setters for every page within the application
   const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar];
 
-  function handleLogIn() {
-    setSignIn(false);
-    setHome(true);
-    setNavBar(true);
-  }
-
-  function handleSignUp() {
-    setSignIn(false)
-    setSignUp(true)
-  }
-
-  function handleSignUpBack() {
-    setSignIn(true)
-    setSignUp(false)
-  }
-
-  function handleSignOut() {
-    setSignIn(true);
-    setSignUp(false);
-    setHome(false);
-    setNavBar(false);
-  }
-
   async function submitLogin(username, password) {
     setNotification()
     await signInWithEmailAndPassword(getAuth(), username, password)
       .then((userCredential) => {
         setNotification('Login Success!')
-        setSignIn(false)
-        setHome(true)
-        setNavBar(true)
+        navSwitch('home')
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -136,8 +111,8 @@ function App() {
     <>
       {notification && <Notification text={notification}></Notification>}
       <div className="main">
-        {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
-        {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={handleSignUpBack}></SignUp> : []}
+        {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={() => navSwitch('signUp')}></SignIn> : []}
+        {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={() => navSwitch('signIn')}></SignUp> : []}
         {home ? <Home></Home> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div>
