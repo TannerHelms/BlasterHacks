@@ -1,13 +1,28 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./sign_up.module.css"
 import Input from "../inputs/input"
 import Button from "../button/button"
-import Notification from "../notification/notification"
+import BackButton from "../backButton/backButton"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function SignUp({ signUpFunc, notificationFunc }) {
+
+export default function SignUp({ notificationFunc, backButtonFunc }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown)
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [])
+
+    const handleKeyDown = event => {
+        const { key, keyCode } = event;
+        if (keyCode === 13) {
+            handleSignUp();
+        }
+    }
 
     function handleSignUp() {
         notificationFunc()
@@ -34,7 +49,7 @@ export default function SignUp({ signUpFunc, notificationFunc }) {
 
     return (
         <>
-
+            <BackButton onClickFunc={backButtonFunc}></BackButton>
             <div className={`${styles.sign_in}`}>
                 <h1>Sign Up</h1>
                 <Input text='Email' placeholder='Enter Email' onChangeFunc={handleEmail}></Input>

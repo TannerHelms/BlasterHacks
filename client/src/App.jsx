@@ -84,7 +84,7 @@ function App() {
       {notification && <Notification text={notification}></Notification>}
       <div className="main">
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
-        {signUp ? <SignUp signUpFunc={handleSignUp} notificationFunc={handleSignUpNotification}></SignUp> : []}
+        {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={handleSignUpBack}></SignUp> : []}
         {home ? <Home></Home> : []}
         {navBar ? <NavBar></NavBar> : []}
       </div>
