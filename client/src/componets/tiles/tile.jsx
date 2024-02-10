@@ -22,9 +22,15 @@ export default function Tile({ placeIndex }) {
                 <div>Distance {placeIndex.distanceString}</div>
                 <div> {placeIndex.nationalPhoneNumber} </div>
                 <a href={`${placeIndex.websiteUri}`}> {placeIndex.websiteUri} </a>
+
+                {placeIndex.regularOpeningHours.openNow ? (
+                    <div> {placeIndex.regularOpeningHours.openNow ? "Open" : "Closed"} </div>
+                ): (
+                    <div> Open Information Not Available </div>
+                )}
+                
                 {placeIndex.regularOpeningHours ? (
                     <div>
-                        {placeIndex.regularOpeningHours.openNow ? "Open" : "Closed"}
                         {placeIndex.regularOpeningHours.weekdayDescriptions.map((weekday, index) => (
                             <div key={index}>{weekday}</div>
                         ))}
