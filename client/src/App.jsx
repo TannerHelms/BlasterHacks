@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 import SignIn from "./componets/signIn/sign_in.jsx";
 import Home from "./componets/home/home.jsx";
+<<<<<<< HEAD
 import NavBar from "./componets/navBar/navBar.jsx";
 import { useGeo } from "./hooks/geoFunc.js"
 import * as firebase from "firebase/app"
@@ -20,9 +21,9 @@ function App() {
   const [notification, setNotification] = useState('')
 
   function handleLogIn() {
-    setSignIn(false)
-    setHome(true)
-    setNavBar(true)
+    setSignIn(false);
+    setHome(true);
+    setNavBar(true);
   }
 
   function handleSignUp() {
@@ -67,7 +68,7 @@ function App() {
         {navBar ? <NavBar></NavBar> : []}
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
