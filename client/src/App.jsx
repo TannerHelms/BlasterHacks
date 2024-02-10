@@ -3,7 +3,6 @@ import "./App.css";
 import SignIn from "./componets/signIn/sign_in.jsx";
 import Home from "./componets/home/home.jsx";
 import NavBar from "./componets/navBar/navbar.jsx";
-import { useGeo } from "./hooks/geoFunc.js"
 import * as firebase from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import SignUp from './componets/signUp/sign_up.jsx';
@@ -17,7 +16,6 @@ function App() {
   const [signUp, setSignUp] = useState(false)
   const [home, setHome] = useState(false)
   const [navBar, setNavBar] = useState(false)
-  const { location, fetchData } = useGeo();
   const [notification, setNotification] = useState('')
 
   function handleLogIn() {
@@ -42,10 +40,6 @@ function App() {
     setHome(false);
     setNavBar(false);
   }
-
-  const handleButtonClick = () => {
-    fetchData();
-  };
 
   async function submitLogin(username, password) {
     setNotification()
@@ -82,18 +76,6 @@ function App() {
     'account': () => console.log('Account'),
     'sign-out': handleSignOut,
   };
-
-
-  const html = (
-    < div >
-      <h2>Your Location:</h2>
-      <p>Latitude: {location.latitude}</p>
-      <p>Longitude: {location.longitude}</p>
-      <p>City: {location.city}</p>
-      <p>State: {location.state}</p>
-      <button onClick={handleButtonClick}>Get Location</button>
-    </div >
-  );
 
   return (
     <>

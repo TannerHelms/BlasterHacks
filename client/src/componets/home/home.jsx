@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function Home() {
     const [clicked, isClicked] = useState(false)
     const { location, fetchData } = useGeo();
-    const handleButtonClick = () => {
+    const handleGetLocationClick = () => {
         fetchData();
     };
     const { search, fetchSearchData } = useSearch(location);
@@ -25,7 +25,7 @@ export default function Home() {
                 <p>Longitude: {location.longitude}</p>
                 <p>City: {location.city}</p>
                 <p>State: {location.state}</p>
-                <button onClick={handleButtonClick}>Get Location</button>
+                <button onClick={handleGetLocationClick}>Get Location</button>
             </div>
             <div>
                 <h2> HOMELESS SHELTERS</h2>
