@@ -1,0 +1,11 @@
+.shelters {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list {
+    overflow-y: scroll;
+    margin: auto;
+}

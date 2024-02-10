@@ -9,6 +9,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } f
 import SignUp from './componets/signUp/sign_up.jsx';
 import Notification from "./componets/notification/notification.jsx";
 import Chat from "./componets/chat/chat.jsx";
+import Shelters from "./componets/shelters/shelters.jsx";
 
 
 function App() {
@@ -117,6 +118,7 @@ function App() {
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={() => navSwitch('signIn')}></SignUp> : []}
         {home ? <Home></Home> : []}
         {chat ? <Chat userEmail={userEmail}></Chat> : []}
+        {shelters ? <Shelters></Shelters> : []}
         {hospitals ? <Hospital></Hospital> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div >
