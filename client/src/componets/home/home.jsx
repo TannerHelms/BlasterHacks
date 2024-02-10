@@ -27,7 +27,7 @@ export default function Home() {
                 <p>State: {location.state}</p>
                 <button onClick={handleButtonClick}>Get Location</button>
             </div>
-            <div>
+            <div className={`${styles.list}`}>
                 <h2> HOMELESS SHELTERS</h2>
                 <ul>
                     {search.places.map((place, index) => (
