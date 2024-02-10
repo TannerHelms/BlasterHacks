@@ -1,0 +1,8 @@
+.chat {
+    height: 90svh;
+}
+
+.messageContainer {
+    height: 80%;
+    overflow-y: auto;
+}

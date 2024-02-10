@@ -8,8 +8,7 @@ import * as firebase from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import SignUp from './componets/signUp/sign_up.jsx';
 import Notification from "./componets/notification/notification.jsx";
-
-
+import Chat from "./componets/chat/chat.jsx";
 
 
 function App() {
@@ -21,6 +20,8 @@ function App() {
   const [hospitals, setHospitals] = useState(false)
   const [navBar, setNavBar] = useState(false)
   const [notification, setNotification] = useState('')
+  const [userEmail, setUserEmail] = useState()
+
 
   // List of state setters for every page within the application
   const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar];
@@ -29,6 +30,7 @@ function App() {
     setNotification()
     await signInWithEmailAndPassword(getAuth(), username, password)
       .then((userCredential) => {
+        setUserEmail(userCredential.user.email)
         setNotification('Login Success!')
         navSwitch('home')
       })
@@ -114,9 +116,10 @@ function App() {
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={() => navSwitch('signUp')}></SignIn> : []}
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={() => navSwitch('signIn')}></SignUp> : []}
         {home ? <Home></Home> : []}
+        {chat ? <Chat userEmail={userEmail}></Chat> : []}
         {hospitals ? <Hospital></Hospital> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
-      </div>
+      </div >
     </>
   );
 }
