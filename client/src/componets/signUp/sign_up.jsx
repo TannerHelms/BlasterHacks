@@ -3,9 +3,10 @@ import styles from "./sign_up.module.css"
 import Input from "../inputs/input"
 import Button from "../button/button"
 import Notification from "../notification/notification"
+import BackButton from "../backButton/backButton"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function SignUp({ signUpFunc }) {
+export default function SignUp({ signUpFunc, backButtonFunc }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [notification, setNotification] = useState()
@@ -33,7 +34,7 @@ export default function SignUp({ signUpFunc }) {
     return (
         <>
             {notification && <Notification text={notification}></Notification>}
-
+            <BackButton onClickFunc={backButtonFunc}></BackButton>
             <div className={`${styles.sign_in}`}>
                 <h1>Sign Up</h1>
                 <Input text='Username' placeholder='Enter Username' onChangeFunc={handleUsername}></Input>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import SignIn from "./componets/signIn/sign_in.jsx";
 import Home from "./componets/home/home.jsx";
-import NavBar from "./componets/navBar/navBar.jsx";
+import NavBar from "./componets/navBar/navbar.jsx";
 import { useGeo } from "./hooks/geoFunc.js"
 import * as firebase from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
@@ -62,7 +62,7 @@ function App() {
 
       <div className="main">
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
-        {signUp ? <SignUp signUpFunc={handleSignUp}></SignUp> : []}
+        {signUp ? <SignUp signUpFunc={handleSignUp} backButtonFunc={handleSignUpBack}></SignUp> : []}
         {home ? <Home></Home> : []}
         {navBar ? <NavBar></NavBar> : []}
       </div>
