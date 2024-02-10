@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TextSearch } from "../requests/textSearch";
+import { calculateDistances } from "./geoHelpFuncs/sortByDist";
 
 export function useSearch(location) {
   const [search, setPlaceDetails] = useState({
@@ -8,9 +9,13 @@ export function useSearch(location) {
 
   const fetchSearchData = () => {
     TextSearch(location).then((resp) => {
-      setPlaceDetails({
-        places: resp.places,
-      });
+      calculateDistances(resp.places, location)
+        .then(() => {
+          resp.places.sort((a, b) => a.distanceInt - b.distanceInt)
+          setPlaceDetails({
+            places: resp.places,
+          });
+        })
     });
   };
 

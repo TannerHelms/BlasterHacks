@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styles from "./sign_in.module.css"
 import Input from "../inputs/input"
 import Button from "../button/button"
@@ -6,6 +6,18 @@ import Button from "../button/button"
 export default function SignIn({ signInFunc, signUpFunc }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        function handleKeyDown(e) {
+            if (e.keyCode === 13) {
+                signInFunc(email, password)
+            }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [email, password, signInFunc])
 
     function handleSignIn() {
         signInFunc(email, password)
