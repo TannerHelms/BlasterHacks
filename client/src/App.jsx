@@ -21,7 +21,7 @@ function App() {
           <p>City: {location.city}</p>
           <p>State: {location.state}</p>
           <button onClick={handleButtonClick}>Get Location</button>
-        </div>
+      </div>
     </>
   )
 }

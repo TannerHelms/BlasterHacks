@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { retrieveGeo } from '../requests/geo.js';
+import { retrieveGeo } from '../requests/retrieveGeo.js';
 
 export function useGeo() {
   const [location, setLocation] = useState({
