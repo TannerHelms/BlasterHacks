@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    place-items: center;
 }
 
 .list {
+    margin: auto;
     overflow-y: scroll;
 }

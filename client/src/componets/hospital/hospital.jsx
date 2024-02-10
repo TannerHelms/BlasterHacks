@@ -1,4 +1,4 @@
-import styles from "./hospital.module.css";
+import classes from "./hospital.module.css";
 import { useGeo } from "../../hooks/geoFunc.js";
 import { useSearch } from "../../hooks/textSearchFunc.js";
 import Tile from "../tiles/tile.jsx";
@@ -17,12 +17,12 @@ export default function Hospital() {
     };
 
     return (
-        <div className={`${styles.home}`}>
+        <div className={classes.hospital}>
             <p>Home Page</p>
             <div>
                 <button onClick={handleGetLocationClick}>Get Location</button>
             </div>
-            <div className={`${styles.list}`}>
+            <div className={classes.list}>
                 <h2> HOSPITALS NEARBY</h2>
                 <ul>
                     {search.places.map((place, index) => (
