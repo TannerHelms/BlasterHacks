@@ -10,7 +10,7 @@ export async function TextSearch(location) {
   const headers = {
     "Content-Type": "application/json",
     "X-Goog-FieldMask":
-      "places.displayName,places.formattedAddress,places.location,places.nationalPhoneNumber,places.websiteUri",
+      "places.displayName,places.formattedAddress,places.location,places.nationalPhoneNumber,places.websiteUri,places.regularOpeningHours",
     "X-Goog-Api-Key": "AIzaSyCjEOMJ2ztU5Ne3rGD2kSVXBmrasLVcuiY",
   };
 

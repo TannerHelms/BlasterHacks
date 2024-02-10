@@ -19,9 +19,13 @@ export default function Tile({ placeIndex }) {
                 <div className={`${styles.border}`}></div>
                 <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
                 <div> {placeIndex.location.longitude} : {placeIndex.location.latitude} </div>
-                <div>Distance {placeIndex.distance}</div>
+                <div>Distance {placeIndex.distanceString}</div>
                 <div> {placeIndex.nationalPhoneNumber} </div>
-                <div> {placeIndex.websiteUri} </div>
+                <a href={`${placeIndex.websiteUri}`}> {placeIndex.websiteUri} </a>
+                <div> {placeIndex.regularOpeningHours.openNow ? "Open" : "Closed"}</div>
+                {placeIndex.regularOpeningHours.weekdayDescriptions.map((weekday, index) => (
+                    <div key={index}> {weekday} </div>
+                ))}
                 <button onClick={() => isClicked(false)}> Minimize </button>
             </div>
          </div>
@@ -32,7 +36,7 @@ export default function Tile({ placeIndex }) {
                 <div className={`${styles.border}`}></div>
                 <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
                 <div> {placeIndex.location.longitude} : {placeIndex.location.latitude} </div>
-                <div>Distance {placeIndex.distance}</div>
+                <div>Distance {placeIndex.distanceString}</div>
                 <button onClick={() => isClicked(true)}> More Details </button>
             </div>
          </div>
