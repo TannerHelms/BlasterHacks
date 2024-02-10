@@ -3,7 +3,6 @@ import { useGeo } from "../../hooks/geoFunc.js";
 import { useSearch } from "../../hooks/textSearchFunc.js";
 import Tile from "../tiles/tile";
 import { useState } from "react";
-
 export default function Home() {
     const [clicked, isClicked] = useState(false)
     const { location, fetchData } = useGeo();
@@ -32,7 +31,7 @@ export default function Home() {
                 <h2> HOMELESS SHELTERS</h2>
                 <ul>
                     {search.places.map((place, index) => (
-                        <Tile key={index} name={place.displayName.text} formattedAddress={place.formattedAddress} longitude={place.location.longitude} latitude={place.location.latitude}/>
+                        <Tile key={index} placeIndex={place} />
                     ))}
                 </ul>
                 {clicked ? "" : <button onClick={searchButtonClick}> Get Shelters</button>}
