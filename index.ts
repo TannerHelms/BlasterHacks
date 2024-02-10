@@ -26,6 +26,15 @@ app.use((req, res, next) => {
 io.on('connection', (socket) => {
   console.log('user connected');
 
+  socket.on('username', (data) => {
+    const currentTime = new Date().toLocaleTimeString();
+    io.emit('message', {
+      "username": "Server",
+      "message": `${data} joined the chat`,
+      "timestamp": currentTime,
+    })
+  })
+
   socket.on('msg', (data) => {
     const currentTime = new Date().toLocaleTimeString();
     if (data.message) {

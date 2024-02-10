@@ -28,6 +28,7 @@ export default function Chat({ userEmail }) {
     useEffect(() => {
         const s = io();
         setSocket(s);
+        s.emit('username', userEmail.split('@')[0])
         return () => {
             s.disconnect();
         }

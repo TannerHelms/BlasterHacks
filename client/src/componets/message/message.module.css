@@ -19,11 +19,20 @@
 
 .first {
     display: flex;
-    width: 80%;
+    flex-direction: column;
+    width: 100%;
+}
+
+.first p {
+    word-break: break-word;
 }
 
 .second {
     text-align: right;
-    width: 100%;
+    width: 100px;
     color: blue;
+}
+
+.server {
+    color: red;
 }

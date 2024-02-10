@@ -7,6 +7,7 @@
     border-color: rgba(60, 60, 67, .6);
     height: 10svh;
     box-sizing: border-box;
+    overflow-x: auto;
 }
 
 .ul {
@@ -31,10 +32,11 @@
     border-width: 3px;
     border-color: aliceblue;
     border-radius: 5px;
-    transition: background-color 0.3s ease; /* Smooth transition on hover */
-  }
+    transition: background-color 0.3s ease;
+    /* Smooth transition on hover */
+}
 
 .a:hover {
     border-color: steelblue;
     color: white;
-  }
+}
