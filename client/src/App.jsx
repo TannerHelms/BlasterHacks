@@ -19,6 +19,7 @@ function App() {
   const [navBar, setNavBar] = useState(false)
   const { location, fetchData } = useGeo();
   const [notification, setNotification] = useState('')
+  const [userEmail, setUserEmail] = useState()
 
   function handleLogIn() {
     setSignIn(false);
@@ -44,6 +45,7 @@ function App() {
     setNotification()
     await signInWithEmailAndPassword(getAuth(), username, password)
       .then((userCredential) => {
+        setUserEmail(userCredential.user.email)
         setNotification('Login Success!')
         setSignIn(false)
         setHome(true)
