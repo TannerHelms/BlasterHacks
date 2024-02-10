@@ -1,15 +1,15 @@
-import styles from "./home.module.css";
+import styles from "./hospital.module.css";
 import { useGeo } from "../../hooks/geoFunc.js";
 import { useSearch } from "../../hooks/textSearchFunc.js";
-import Tile from "../tiles/tile";
+import Tile from "../tiles/tile.jsx";
 import { useState } from "react";
-export default function Home() {
+export default function Hospital() {
     const [clicked, isClicked] = useState(false)
     const { location, fetchData } = useGeo();
     const handleGetLocationClick = () => {
         fetchData();
     };
-    const { search, fetchSearchData } = useSearch(location, "Homeless Shelters");
+    const { search, fetchSearchData } = useSearch(location, "Hospitals");
 
     const searchButtonClick = () => {
         isClicked(true);
@@ -20,21 +20,16 @@ export default function Home() {
         <div className={`${styles.home}`}>
             <p>Home Page</p>
             <div>
-                <h2>Your Location:</h2>
-                <p>Latitude: {location.latitude}</p>
-                <p>Longitude: {location.longitude}</p>
-                <p>City: {location.city}</p>
-                <p>State: {location.state}</p>
                 <button onClick={handleGetLocationClick}>Get Location</button>
             </div>
             <div className={`${styles.list}`}>
-                <h2> HOMELESS SHELTERS</h2>
+                <h2> HOSPITALS NEARBY</h2>
                 <ul>
                     {search.places.map((place, index) => (
                         <Tile key={index} placeIndex={place} />
                     ))}
                 </ul>
-                {clicked ? "" : <button onClick={searchButtonClick}> Get Shelters</button>}
+                {clicked ? "" : <button onClick={searchButtonClick}> Get Hosptials</button>}
             </div>
         </div>
     );

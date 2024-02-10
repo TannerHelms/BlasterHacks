@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SignIn from "./componets/signIn/sign_in.jsx";
+import Hospital from "./componets/hospital/hospital.jsx";
 import Home from "./componets/home/home.jsx";
 import NavBar from "./componets/navBar/navbar.jsx";
 import * as firebase from "firebase/app"
@@ -15,6 +16,7 @@ function App() {
   const [signIn, setSignIn] = useState(true)
   const [signUp, setSignUp] = useState(false)
   const [home, setHome] = useState(false)
+  const [hospital, setHospital] = useState(false)
   const [navBar, setNavBar] = useState(false)
   const [notification, setNotification] = useState('')
 
@@ -59,8 +61,8 @@ function App() {
   }
 
   function handleSignUpNotification(text) {
-    if (text == "Account Created Sucessfully") {
-      setNotification("Account Created Sucessfully")
+    if (text == "Account Created Successfully") {
+      setNotification("Account Created Successfully")
       setSignUp(false)
       setSignIn(true)
     } else {
@@ -68,11 +70,15 @@ function App() {
     }
   }
 
+  function handleHospitalClick() {
+    setHome(false);
+    setHospital(true);
+  }
   const NavClicks = {
     'home': () => console.log('Home'),
     'chat': () => console.log('Chat'),
     'shelters': () => console.log('Shelters'),
-    'hospitals': () => console.log('Hospitals'),
+    'hospitals': () => handleHospitalClick(),
     'account': () => console.log('Account'),
     'sign-out': handleSignOut,
   };
@@ -84,6 +90,7 @@ function App() {
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={handleSignUpBack}></SignUp> : []}
         {home ? <Home></Home> : []}
+        {hospital ? <Hospital></Hospital> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div>
     </>
