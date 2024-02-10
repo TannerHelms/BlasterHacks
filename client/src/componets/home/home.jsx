@@ -3,16 +3,11 @@ import { useGeo } from "../../hooks/geoFunc.js";
 import { useSearch } from "../../hooks/textSearchFunc.js";
 import Tile from "../tiles/tile";
 import { useState } from "react";
-import { useDistance } from "../../hooks/distanceFunc.js";
 export default function Home() {
-    const { distance, fetchDistance } = useDistance();
     const [clicked, isClicked] = useState(false)
     const { location, fetchData } = useGeo();
     const handleButtonClick = () => {
         fetchData();
-    };
-    const handleDistanceClick = () => {
-        fetchDistance();
     };
     const { search, fetchSearchData } = useSearch(location);
 
@@ -25,10 +20,6 @@ export default function Home() {
         <div className={`${styles.home}`}>
             <p>Home Page</p>
             <div>
-                {distance}
-                <button onClick={handleDistanceClick}>Get Distance</button>
-            </div>
-            <div>
                 <h2>Your Location:</h2>
                 <p>Latitude: {location.latitude}</p>
                 <p>Longitude: {location.longitude}</p>
@@ -40,7 +31,7 @@ export default function Home() {
                 <h2> HOMELESS SHELTERS</h2>
                 <ul>
                     {search.places.map((place, index) => (
-                        <Tile key={index} name={place.displayName.text} formattedAddress={place.formattedAddress} longitude={place.location.longitude} latitude={place.location.latitude} />
+                        <Tile key={index} name={place.displayName.text} formattedAddress={place.formattedAddress} longitude={place.location.longitude} latitude={place.location.latitude} distance={place.distance} />
                     ))}
                 </ul>
                 {clicked ? "" : <button onClick={searchButtonClick}> Get Shelters</button>}
