@@ -5,25 +5,27 @@ import Button from "../button/button"
 import Notification from "../notification/notification"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function SignUp({ signUpFunc }) {
-    const [username, setUsername] = useState('');
+export default function SignUp({ signUpFunc, notificationFunc }) {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [notification, setNotification] = useState()
 
     function handleSignUp() {
-        createUserWithEmailAndPassword(getAuth(), username, password)
+        notificationFunc()
+        createUserWithEmailAndPassword(getAuth(), email, password)
             .then((userCredential) => {
-                setNotification('Account Created Sucessfully')
+                notificationFunc('Account Created Sucessfully')
+                setEmail('')
+                setPassword('')
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                setNotification(`Not able to create account: ${error.message}`)
+                notificationFunc(`Not able to create account: ${error.message}`)
             });
     }
 
-    function handleUsername(username) {
-        setUsername(username)
+    function handleEmail(email) {
+        setEmail(email)
     }
 
     function handlePassword(password) {
@@ -32,12 +34,11 @@ export default function SignUp({ signUpFunc }) {
 
     return (
         <>
-            {notification && <Notification text={notification}></Notification>}
 
             <div className={`${styles.sign_in}`}>
                 <h1>Sign Up</h1>
-                <Input text='Username' placeholder='Enter Username' onChangeFunc={handleUsername}></Input>
-                <Input text='Password' placeholder='Enter Password' onChangeFunc={handlePassword}></Input>
+                <Input text='Email' placeholder='Enter Email' onChangeFunc={handleEmail}></Input>
+                <Input text='Password' inputType="password" placeholder='Enter Password' onChangeFunc={handlePassword}></Input>
                 <Button text='Sign Up' onClickFunc={handleSignUp}></Button>
             </div>
         </>
