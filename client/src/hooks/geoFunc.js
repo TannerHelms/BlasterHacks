@@ -9,7 +9,7 @@ export function useGeo() {
     state: 'TBD',
   });
 
-  const fetchData = () => {
+  const fetchGeoData = () => {
     retrieveGeo().then(resp => {
       setLocation({
         latitude: resp.latitude,
@@ -19,5 +19,5 @@ export function useGeo() {
       });
     });
   };
- return { location, fetchData };
+  return { location, fetchData: fetchGeoData };
 }
