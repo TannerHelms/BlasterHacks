@@ -78,7 +78,7 @@ app.get("/random_number", (req, res) => {
 });
 
 server.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.ASSET_URL}${process.env.PORT}...`);
+  console.log(`Listening on port ${process.env.ASSET_URL?.split(":5173")[0]}:${process.env.PORT}...`);
 });
 
 

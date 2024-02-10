@@ -1,38 +1,71 @@
-import { useEffect, useState } from 'react'
-import LabelButton from "./componets/LabelButton/labelButton"
-import Button from "./componets/Button/button"
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-
-
-
+import { useEffect, useState } from 'react';
+import './App.css';
+import { io } from "socket.io-client";
+import Button from "./componets/button/button"
+import { Quote } from "./requests/quote.js"
 function App() {
+  const [count, setCount] = useState(0)
+  const [socket, setSocket] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [quote, setQuote] = useState('');
+  const [notification, setNotification] = useState(null);
 
-  const [username, setUsername] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [inputVal, setInputVal] = useState('');
+  useEffect(() => {
+    const s = io();
+    setSocket(s);
+    return () => {
+      s.disconnect();
+    };
+  }, []);
 
-  function handlgeSubmit(e) {
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("new state", (newCount) => {
+      setCount(newCount);
+      if (loading) {
+        setLoading(false);
+      }
+    });
+    socket.on("notification", (n) => {
+      setNotification(n);
+    });
+  }, [socket, loading]);
 
+
+  function getQuote() {
+    if (!socket) return;
+    socket.emit("quote");
+    Quote().then(resp => setQuote(resp))
   }
 
   useEffect(() => {
-    if (submitted) [
-      alert('Form Submitted')
-    ]
-    setSubmitted(false)
-  }, [submitted])
+    getQuote();
+  }, []);
 
+  function increment() {
+    socket.emit("increment");
+  }
+
+  function decrement() {
+    socket.emit("decrement");
+  }
 
   return (
     <>
-      <LabelButton title='Username' placeholder='Enter Username' func={(uname) => { setInputVal(uname) }}></LabelButton>
-      <LabelButton title='Password' placeholder='Enter Password' inputV={inputVal}></LabelButton>
-      <LabelButton title='Email' placeholder='Enter Email'></LabelButton>
-      <br />
-      <Button text="Submit" onClickFunc={() => setSubmitted(true)}></Button>
+      {notification &&
+        <div className='notification'>
+          <p>{notification}</p>
+          <Button text="close" onClickFunc={() => setNotification(null)}></Button>
+        </div>
+      }
+
+      <div className='main'>
+        <p>{quote['content']}</p>
+        <h1>{loading ? "Loading... " : count}</h1>
+        <Button text="Increment" onClickFunc={increment}></Button>
+        <Button text="Decrement" onClickFunc={decrement}></Button>
+        <Button text="Get Quote" onClickFunc={getQuote}></Button>
+      </div>
     </>
   )
 }
