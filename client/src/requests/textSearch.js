@@ -1,10 +1,12 @@
 import axios from "axios";
+import { useEffect } from "react";
+import { useGeo } from "../hooks/geoFunc";
 
-export async function TextSearch() {
+export async function TextSearch(location) {
   const url = "https://places.googleapis.com/v1/places:searchText";
 
   const data = {
-    textQuery: "Homeless Shelters in Logan, Utah",
+    textQuery: `Homeless Shelters in ${location.city}, ${location.state}`,
   };
 
   const headers = {
