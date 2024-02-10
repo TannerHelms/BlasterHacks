@@ -7,6 +7,7 @@ import { useGeo } from "./hooks/geoFunc.js"
 import * as firebase from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import SignUp from './componets/signUp/sign_up.jsx';
+import Notification from "./componets/notification/notification.jsx";
 
 
 
@@ -39,10 +40,31 @@ function App() {
     fetchData();
   };
 
-  function submitLogin(username, password) {
-    setSignIn(false)
-    setHome(true)
-    setNavBar(true)
+  async function submitLogin(username, password) {
+    setNotification()
+    await signInWithEmailAndPassword(getAuth(), username, password)
+      .then((userCredential) => {
+        setNotification('Login Success!')
+        setSignIn(false)
+        setHome(true)
+        setNavBar(true)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setNotification(`Failed to login: ${error.message}`)
+      });
+
+  }
+
+  function handleSignUpNotification(text) {
+    if (text == "Account Created Sucessfully") {
+      setNotification("Account Created Sucessfully")
+      setSignUp(false)
+      setSignIn(true)
+    } else {
+      setNotification(text)
+    }
   }
 
 
@@ -59,10 +81,10 @@ function App() {
 
   return (
     <>
-
+      {notification && <Notification text={notification}></Notification>}
       <div className="main">
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={handleSignUp}></SignIn> : []}
-        {signUp ? <SignUp signUpFunc={handleSignUp} backButtonFunc={handleSignUpBack}></SignUp> : []}
+        {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={handleSignUpBack}></SignUp> : []}
         {home ? <Home></Home> : []}
         {navBar ? <NavBar></NavBar> : []}
       </div>
