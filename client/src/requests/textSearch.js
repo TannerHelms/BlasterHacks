@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export async function TextSearch(location) {
+export async function TextSearch(location, topic) {
   const url = "https://places.googleapis.com/v1/places:searchText";
 
   const data = {
-    textQuery: `Homeless Shelters in ${location.city}, ${location.state}`,
+    textQuery: `${topic} in ${location.city}, ${location.state}`,
   };
 
   const headers = {

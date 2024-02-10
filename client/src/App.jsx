@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SignIn from "./componets/signIn/sign_in.jsx";
+import Hospital from "./componets/hospital/hospital.jsx";
 import Home from "./componets/home/home.jsx";
 import NavBar from "./componets/navBar/navbar.jsx";
 import * as firebase from "firebase/app"
@@ -40,15 +41,14 @@ function App() {
   }
 
   function handleSignUpNotification(text) {
-    if (text == "Account Created Sucessfully") {
-      setNotification("Account Created Sucessfully")
+    if (text == "Account Created Successfully") {
+      setNotification("Account Created Successfully")
       setSignUp(false)
       setSignIn(true)
     } else {
       setNotification(text)
     }
   }
-
   function navSwitch(page) {
     switch (page) {
       case 'home':
@@ -97,7 +97,7 @@ function App() {
         break;
     }
   }
-  
+
   const NavClicks = {
     'home': () => navSwitch('home'),
     'chat': () => navSwitch('chat'),
@@ -114,6 +114,7 @@ function App() {
         {signIn ? <SignIn signInFunc={submitLogin} signUpFunc={() => navSwitch('signUp')}></SignIn> : []}
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={() => navSwitch('signIn')}></SignUp> : []}
         {home ? <Home></Home> : []}
+        {hospitals ? <Hospital></Hospital> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div>
     </>
