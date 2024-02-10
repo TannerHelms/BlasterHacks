@@ -1,11 +1,17 @@
 import styles from "./home.module.css";
 import { useGeo } from "../../hooks/geoFunc.js";
 import { useSearch } from "../../hooks/textSearchFunc.js";
+import { useDistance } from "../../hooks/distanceFunc.js";
 
 export default function Home() {
+    const { distance, fetchDistance } = useDistance();
+
     const { location, fetchData } = useGeo();
     const handleButtonClick = () => {
         fetchData();
+    };
+    const handleDistanceClick = () => {
+        fetchDistance();
     };
     const { search, fetchSearchData } = useSearch(location);
 
@@ -16,6 +22,10 @@ export default function Home() {
     return (
         <div className={`${styles.home}`}>
             <p>Home Page</p>
+            <div>
+                {distance}
+                <button onClick={handleDistanceClick}>Get Distance</button>
+            </div>
             <div>
                 <h2>Your Location:</h2>
                 <p>Latitude: {location.latitude}</p>
