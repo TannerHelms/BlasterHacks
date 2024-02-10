@@ -5,6 +5,9 @@ import { Quote } from "./requests/quote.js";
 import { useGeo } from "./hooks/geoFunc.js";
 import { useSearch } from "./hooks/textSearchFunc.js";
 import { TextSearch } from "./requests/textSearch";
+import Button from "./componets/button/button";
+import { Quote } from "./requests/quote.js";
+import { useGeo } from "./hooks/geoFunc.js";
 function App() {
   const { location, fetchData } = useGeo();
   const { search, fetchSearchData } = useSearch(location);
