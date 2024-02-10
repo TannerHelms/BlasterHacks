@@ -13,7 +13,7 @@ export default function Tile({ placeIndex }) {
                 <div className={`${styles.border}`}></div>
                 <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
                 <div> {placeIndex.location.longitude} : {placeIndex.location.latitude} </div>
-                <div>Distance {placeIndex.distance}</div>
+                <div>Distance {placeIndex.distanceString}</div>
             </div>
         </div>
     );
