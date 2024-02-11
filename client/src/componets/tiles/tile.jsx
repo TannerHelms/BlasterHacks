@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styles from "./tile.module.css";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
-export default function Tile({ placeIndex }) {
+export default function Tile({ placeIndex, identity}) {
     const firstCommaIndex = placeIndex.formattedAddress.indexOf(',');
 
     const [clicked, isClicked] = useState(false);
+    const [favoriteClicked, isFavoriteClicked] = useState(false);
 
 
     const firstLine = placeIndex.formattedAddress.slice(0, firstCommaIndex);
@@ -13,18 +15,26 @@ export default function Tile({ placeIndex }) {
         <>
             {
                 clicked ?
-                    <div className={`${styles.tile_container}`}>
+                    <div id={identity} className={`${styles.tile_container}`}>
                         <div className={`${styles.tile}`}>
-                            <h3 className={`${styles.tileHeader}`}> {placeIndex.displayName.text} </h3>
+                        <h3 className={`${styles.tileHeader}`}>
+                            {placeIndex.displayName.text}
+                        </h3>
+                        <div>
+                                {favoriteClicked ? (
+                                    <FaStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
+                                ) : (
+                                    <FaRegStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
+                                )} 
+                            </div>
                             <div className={`${styles.border}`}></div>
                             <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
-                            <div> {placeIndex.location.longitude} : {placeIndex.location.latitude} </div>
                             <div>Distance {placeIndex.distanceString}</div>
                             <div> {placeIndex.nationalPhoneNumber} </div>
-                            <a href={`${placeIndex.websiteUri}`}> {placeIndex.websiteUri} </a>
+                            <a href={`${placeIndex.websiteUri}`}> `Visit {placeIndex.displayName.text}` </a>
                             {placeIndex.regularOpeningHours ? (
                                 <div>
-                                    {placeIndex.regularOpeningHours.openNow ? "Open" : "Closed"}
+                                    {placeIndex.regularOpeningHours.openNow ? "Currently Open" : "Currently Closed"}
                                     {placeIndex.regularOpeningHours.weekdayDescriptions.map((weekday, index) => (
                                         <div key={index}>{weekday}</div>
                                     ))}
@@ -36,12 +46,21 @@ export default function Tile({ placeIndex }) {
                         </div>
                     </div>
                     :
-                    <div className={`${styles.tile_container}`}>
+                    <div id={identity} className={`${styles.tile_container}`}>
                         <div className={`${styles.tile}`}>
-                            <h3 className={`${styles.tileHeader}`}> {placeIndex.displayName.text} </h3>
+                            <h3> {placeIndex.name} </h3>
+                            <h3 className={`${styles.tileHeader}`}> 
+                                {placeIndex.displayName.text}
+                            </h3>
+                            <div>
+                                {favoriteClicked ? (
+                                    <FaStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
+                                ) : (
+                                    <FaRegStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
+                                )} 
+                            </div>
                             <div className={`${styles.border}`}></div>
                             <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
-                            <div> {placeIndex.location.longitude} : {placeIndex.location.latitude} </div>
                             <div>Distance {placeIndex.distanceString}</div>
                             <button onClick={() => isClicked(true)}> More Details </button>
                         </div>

@@ -20,14 +20,14 @@ export default function Hospital() {
                         <div className={classes.tiles}>
                             {
                                 search.map((place, index) => (
-                                    <Tile key={index} placeIndex={place} />
+                                    <Tile key={index} placeIndex={place} identity={index + 'hospitals'} />
                                 ))
                             }
 
                         </div>
                     )
                 }
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

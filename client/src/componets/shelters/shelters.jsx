@@ -21,7 +21,7 @@ export default function Shelters() {
                         <ul>
                             {
                                 search.map((place, index) => (
-                                    <Tile key={index} placeIndex={place} />
+                                    <Tile key={index} placeIndex={place} identity={index + "shelters"} />
                                 ))
                             }
 
