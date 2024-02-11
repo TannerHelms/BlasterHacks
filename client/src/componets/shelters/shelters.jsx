@@ -4,32 +4,25 @@ import { useSearch } from "../../hooks/textSearchFunc.js";
 import Tile from "../tiles/tile";
 import { useState } from "react";
 export default function Shelters() {
-    const [clicked, isClicked] = useState(false)
-    const { location, fetchData } = useGeo();
+    const [search, setSearch] = useState()
 
-    const handleGetLocationClick = () => {
-        fetchData();
-    };
-    const { search, fetchSearchData } = useSearch(location, "Homeless Shelters");
-
-    const searchButtonClick = () => {
-        isClicked(true);
-        fetchSearchData();
+    async function searchButtonClick() {
+        var res = await useSearch("Homeless Shelters")
+        setSearch(res)
     };
 
     return (
         <div className={`${styles.shelters}`}>
-            <div>
-                <button onClick={handleGetLocationClick}>Get Location</button>
-            </div>
             <div className={`${styles.list}`}>
                 <h2> HOMELESS SHELTERS</h2>
+                <button onClick={searchButtonClick}>Search</button>
                 <ul>
-                    {search.places.map((place, index) => (
-                        <Tile key={index} placeIndex={place} />
-                    ))}
+                    {
+                        !search ? '' : search.map((place, index) => (
+                            <Tile key={index} placeIndex={place} />
+                        ))
+                    }
                 </ul>
-                {clicked ? "" : <button onClick={searchButtonClick}> Get Shelters</button>}
             </div>
         </div>
     );

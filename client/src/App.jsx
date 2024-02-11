@@ -37,7 +37,7 @@ function App() {
       .then((userCredential) => {
         setUserEmail(userCredential.user.email)
         setNotification('Login Success!')
-        navSwitch('home')
+        navSwitch('shelters')
       })
       .catch((error) => {
         setNotification(`Failed to login: ${error.message}`)

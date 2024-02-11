@@ -1,14 +1,15 @@
 import { retrieveDistance } from "../../requests/retrieveDistance.js"
 
-export const calculateDistances = (places, location) => {
-    const distancePromises = places.map((place) => {
+export async function calculateDistances(places, location) {
+    const promises = places.map((place) => {
         return retrieveDistance(location.latitude, location.longitude, place.location.latitude, place.location.longitude)
-            .then((distResponse) => {
-                place.distanceString = distResponse.data.routes.foot.distance.text;
-                place.distanceInt = distResponse.data.routes.foot.distance.value;
-            });
-    });
+            .then(resp => {
+                place.distanceString = resp.data.routes.foot.distance.text;
+                place.distanceInt = resp.data.routes.foot.distance.value;
+                return place
+            })
 
-    // Return a promise that resolves when all asynchronous operations are complete
-    return Promise.all(distancePromises);
+    })
+    return Promise.all(promises)
+
 };

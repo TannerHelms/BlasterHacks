@@ -4,32 +4,25 @@ import { useSearch } from "../../hooks/textSearchFunc.js";
 import Tile from "../tiles/tile.jsx";
 import { useState } from "react";
 export default function Hospital() {
-    const [clicked, isClicked] = useState(false)
-    const { location, fetchData } = useGeo();
-    const handleGetLocationClick = () => {
-        fetchData();
-    };
-    const { search, fetchSearchData } = useSearch(location, "Hospitals");
+    const [search, setSearch] = useState()
 
-    const searchButtonClick = () => {
-        isClicked(true);
-        fetchSearchData();
+    async function searchButtonClick() {
+        var res = await useSearch("Hospitals")
+        setSearch(res)
     };
 
     return (
         <div className={classes.hospital}>
-            <p>Home Page</p>
-            <div>
-                <button onClick={handleGetLocationClick}>Get Location</button>
-            </div>
             <div className={classes.list}>
-                <h2> HOSPITALS NEARBY</h2>
+                <h2> HOSPITALS SHELTERS</h2>
+                <button onClick={searchButtonClick}>Search</button>
                 <ul>
-                    {search.places.map((place, index) => (
-                        <Tile key={index} placeIndex={place} />
-                    ))}
+                    {
+                        !search ? '' : search.map((place, index) => (
+                            <Tile key={index} placeIndex={place} />
+                        ))
+                    }
                 </ul>
-                {clicked ? "" : <button onClick={searchButtonClick}> Get Hosptials</button>}
             </div>
         </div>
     );
