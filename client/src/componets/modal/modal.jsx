@@ -47,7 +47,7 @@ export default function Modal({ place, closeFunc }) {
                 {
                     !place.websiteUri ? '' : <div className={classes.second}>
                         <p>Url</p>
-                        <p>{place.websiteUri}</p>
+                        <p> <a href={place.websiteUri} target="_blank"> {title}'s website</a></p>
                     </div>
                 }
 
