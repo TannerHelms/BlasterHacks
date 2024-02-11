@@ -26,7 +26,7 @@ export default function Hospital() {
                 <h2> HOSPITALS NEARBY</h2>
                 <ul>
                     {search.places.map((place, index) => (
-                        <Tile key={index} placeIndex={place} />
+                        <Tile key={index} placeIndex={place} identity={index + "hospitals"} />
                     ))}
                 </ul>
                 {clicked ? "" : <button onClick={searchButtonClick}> Get Hosptials</button>}

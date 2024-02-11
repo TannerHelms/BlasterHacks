@@ -9,6 +9,7 @@ export default function Home() {
     const handleGetLocationClick = () => {
         fetchData();
     };
+    
     const { search, fetchSearchData } = useSearch(location, "Homeless Shelters");
 
     const searchButtonClick = () => {
@@ -31,7 +32,7 @@ export default function Home() {
                 <h2> HOMELESS SHELTERS</h2>
                 <ul>
                     {search.places.map((place, index) => (
-                        <Tile key={index} placeIndex={place} />
+                        <Tile key={index} placeIndex={place} identity={index + "shelters"}/>
                     ))}
                 </ul>
                 {clicked ? "" : <button onClick={searchButtonClick}> Get Shelters</button>}
