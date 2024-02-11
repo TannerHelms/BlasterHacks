@@ -10,6 +10,7 @@ import SignUp from './componets/signUp/sign_up.jsx';
 import Notification from "./componets/notification/notification.jsx";
 import Chat from "./componets/chat/chat.jsx";
 import Shelters from "./componets/shelters/shelters.jsx";
+import Account from "./componets/account/account";
 import { io } from "socket.io-client"
 
 export var globalID = '';
@@ -21,6 +22,7 @@ function App() {
   const [chat, setChat] = useState(false)
   const [shelters, setShelters] = useState(false)
   const [hospitals, setHospitals] = useState(false)
+  const [account, setAccount] = useState(false)
   const [navBar, setNavBar] = useState(false)
   const [notification, setNotification] = useState()
   const [userEmail, setUserEmail] = useState('')
@@ -31,7 +33,7 @@ function App() {
 
 
   // List of state setters for every page within the application
-  const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar];
+  const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar, setAccount];
 
   async function submitLogin(username, password) {
     setNotification()
@@ -101,6 +103,13 @@ function App() {
             : set(false)
         });
         break;
+      case 'account':
+        setPages.forEach((set) => {
+          (set === setAccount || set === setNavBar)
+            ? set(true)
+            : set(false)
+        });
+        break;
       case 'hospitals':
         setPages.forEach((set) => {
           (set === setHospitals || set === setNavBar)
@@ -145,6 +154,7 @@ function App() {
         {home ? <Home></Home> : []}
         {chat ? <Chat userEmail={userEmail}></Chat> : []}
         {shelters ? <Shelters></Shelters> : []}
+        {account ? <Account></Account> : []}
         {hospitals ? <Hospital></Hospital> : []}
         {navBar ? <NavBar NavClicks={NavClicks}></NavBar> : []}
       </div >
