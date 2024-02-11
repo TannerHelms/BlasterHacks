@@ -11,5 +11,4 @@ export async function calculateDistances(places, location) {
 
     })
     return Promise.all(promises)
-
 };

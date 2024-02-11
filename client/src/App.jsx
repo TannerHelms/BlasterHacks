@@ -62,10 +62,8 @@ function App() {
   useEffect(() => {
     if (!socket) return;
     const callback = (data) => {
-      var user = userEmail.split('@')[0]
       var message = data.message;
-      if (message.includes(user)) return;
-      console.log('')
+      if (message.includes(getAuth().currentUser.email.split('@')[0])) return;
       setNotification(`${data.message} - ${data.timestamp}`);
     }
     socket.on('join', callback)
