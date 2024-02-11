@@ -14,15 +14,19 @@ export default function Hospital() {
     return (
         <div className={classes.hospital}>
             <div className={classes.list}>
-                <h2> HOSPITALS SHELTERS</h2>
-                <button onClick={searchButtonClick}>Search</button>
-                <ul>
-                    {
-                        !search ? '' : search.map((place, index) => (
-                            <Tile key={index} placeIndex={place} />
-                        ))
-                    }
-                </ul>
+                <h2>HOSPITALS</h2>
+                {
+                    !search ? <button onClick={searchButtonClick}>Search</button> : (
+                        <div className={classes.tiles}>
+                            {
+                                search.map((place, index) => (
+                                    <Tile key={index} placeIndex={place} />
+                                ))
+                            }
+
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

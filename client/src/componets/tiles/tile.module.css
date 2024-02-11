@@ -1,10 +1,10 @@
 .tile_container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the min and max width as needed */
-    gap: 20px; /* Adjust the gap between grid items */
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    /* Adjust the min and max width as needed */
+    gap: 20px;
+    /* Adjust the gap between grid items */
+    margin: auto;
 }
 
 .tile {

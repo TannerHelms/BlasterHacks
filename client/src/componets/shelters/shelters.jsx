@@ -14,15 +14,21 @@ export default function Shelters() {
     return (
         <div className={`${styles.shelters}`}>
             <div className={`${styles.list}`}>
-                <h2> HOMELESS SHELTERS</h2>
-                <button onClick={searchButtonClick}>Search</button>
-                <ul>
-                    {
-                        !search ? '' : search.map((place, index) => (
-                            <Tile key={index} placeIndex={place} />
-                        ))
-                    }
-                </ul>
+                <h2>SHELTERS</h2>
+
+                {
+                    !search ? <button onClick={searchButtonClick}>Search</button> : (
+                        <ul>
+                            {
+                                search.map((place, index) => (
+                                    <Tile key={index} placeIndex={place} />
+                                ))
+                            }
+
+                        </ul>
+                    )
+                }
+
             </div>
         </div>
     );

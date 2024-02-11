@@ -6,6 +6,6 @@
 }
 
 .list {
-    overflow-y: scroll;
+    overflow-y: auto;
     margin: auto;
 }
