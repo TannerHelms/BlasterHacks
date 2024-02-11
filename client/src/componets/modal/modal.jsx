@@ -35,7 +35,7 @@ export default function Modal({ place, closeFunc }) {
                     <p>{address}</p>
                 </div>
                 <div className={classes.second}>
-                    <p>distance</p>
+                    <p>Distance</p>
                     <p>{distance}</p>
                 </div>
                 {

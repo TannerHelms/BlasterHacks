@@ -14,11 +14,11 @@ import { io } from "socket.io-client"
 
 
 function App() {
-  const [signIn, setSignIn] = useState(false)
+  const [signIn, setSignIn] = useState(true)
   const [signUp, setSignUp] = useState(false)
   const [home, setHome] = useState(false)
   const [chat, setChat] = useState(false)
-  const [shelters, setShelters] = useState(true)
+  const [shelters, setShelters] = useState(false)
   const [hospitals, setHospitals] = useState(false)
   const [navBar, setNavBar] = useState(false)
   const [notification, setNotification] = useState()

@@ -3,13 +3,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
 }
 
 .tiles {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
+}
+
+.list {
+    overflow-y: auto;
 }
