@@ -31,13 +31,7 @@ export default function Tile({ placeIndex, identity}) {
                             <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
                             <div>Distance {placeIndex.distanceString}</div>
                             <div> {placeIndex.nationalPhoneNumber} </div>
-                            {placeIndex.websiteUri ? (
-                                <div>
-                                    <a href={`${placeIndex.websiteUri}`} target="_blank"> {placeIndex.websiteUri} </a>
-                                </div>
-                            ) : (
-                                <div>No Website Listed</div>
-                            )}
+                            <a href={`${placeIndex.websiteUri}`}> `Visit {placeIndex.displayName.text}` </a>
                             {placeIndex.regularOpeningHours ? (
                                 <div>
                                     {placeIndex.regularOpeningHours.openNow ? "Currently Open" : "Currently Closed"}
