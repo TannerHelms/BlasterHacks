@@ -4,14 +4,14 @@ import SignIn from "./componets/signIn/sign_in.jsx";
 import Hospital from "./componets/hospital/hospital.jsx";
 import Home from "./componets/home/home.jsx";
 import NavBar from "./componets/navBar/navbar.jsx";
-import * as firebase from "firebase/app"
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import SignUp from './componets/signUp/sign_up.jsx';
 import Notification from "./componets/notification/notification.jsx";
 import Chat from "./componets/chat/chat.jsx";
 import Shelters from "./componets/shelters/shelters.jsx";
 import Account from "./componets/account/account";
 import { io } from "socket.io-client"
+import Search from "./componets/search/search.jsx";
 
 export var globalID = '';
 
@@ -28,12 +28,13 @@ function App() {
   const [userEmail, setUserEmail] = useState('')
   const [socket, setSocket] = useState()
   const [user, setUser] = useState()
+  const [search, setSearch] = useState(false)
 
 
 
 
   // List of state setters for every page within the application
-  const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar, setAccount];
+  const setPages = [setSignIn, setSignUp, setHome, setChat, setShelters, setHospitals, setNavBar, setAccount, setSearch];
 
   async function submitLogin(username, password) {
     setNotification()
@@ -108,6 +109,13 @@ function App() {
             : set(false)
         });
         break;
+      case 'search':
+        setPages.forEach((set) => {
+          (set === setSearch || set === setNavBar)
+            ? set(true)
+            : set(false)
+        });
+        break;
       case 'hospitals':
         setPages.forEach((set) => {
           (set === setHospitals || set === setNavBar)
@@ -141,6 +149,7 @@ function App() {
     'hospitals': () => navSwitch('hospitals'),
     'account': () => navSwitch('account'),
     'sign-out': () => navSwitch('signIn'),
+    'search': () => navSwitch('search')
   };
 
   return (
@@ -151,6 +160,7 @@ function App() {
         {signUp ? <SignUp notificationFunc={handleSignUpNotification} backButtonFunc={() => navSwitch('signIn')}></SignUp> : []}
         {home ? <Home></Home> : []}
         {chat ? <Chat userEmail={userEmail}></Chat> : []}
+        {search ? <Search></Search> : []}
         {shelters ? <Shelters></Shelters> : []}
         {account ? <Account></Account> : []}
         {hospitals ? <Hospital></Hospital> : []}
