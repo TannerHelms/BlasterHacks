@@ -19,7 +19,7 @@ export default function Shelters() {
                 <ul>
                     {
                         !search ? '' : search.map((place, index) => (
-                            <Tile key={index} placeIndex={place} />
+                            <Tile key={index} placeIndex={place} identity={index + "shelters"} />
                         ))
                     }
                 </ul>
