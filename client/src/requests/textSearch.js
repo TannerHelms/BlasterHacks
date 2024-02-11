@@ -16,6 +16,5 @@ export async function TextSearch(location, topic) {
 
   const response = await axios.post(url, data, { headers });
 
-  console.log(response.data.places)
   return response.data;
 }

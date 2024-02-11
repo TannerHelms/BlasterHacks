@@ -63,8 +63,8 @@ export default function Chat({ userEmail }) {
 
     return (
         <div className={`${styles.chat}`}>
-            <div className={`${styles.messageContainer}`} ref={divRef}>
 
+            <div className={`${styles.messageContainer}`} ref={divRef}>
                 {messages &&
                     messages.map((message, idx) => {
                         return (
