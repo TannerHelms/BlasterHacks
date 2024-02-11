@@ -41,7 +41,7 @@ export default function Home() {
                         <div className={classes.tiles}>
                             {
                                 tile.map((place, index) => (
-                                    <Tile key={index} place={place.place} identity={index + "shelters"} select={true} />
+                                    <Tile key={index} place={place.place} identity={index + "shelters"} select={true} tileId={place.id} onDelete={() => {setTiles(tile.filter(tile => tile.id !== place.id))}} />
                                 ))
                             }
 
