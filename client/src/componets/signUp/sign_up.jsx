@@ -10,20 +10,6 @@ export default function SignUp({ notificationFunc, backButtonFunc }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyDown)
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown)
-        }
-    }, [])
-
-    const handleKeyDown = event => {
-        const { key, keyCode } = event;
-        if (keyCode === 13) {
-            handleSignUp();
-        }
-    }
-
     function handleSignUp() {
         notificationFunc()
         createUserWithEmailAndPassword(getAuth(), email, password)

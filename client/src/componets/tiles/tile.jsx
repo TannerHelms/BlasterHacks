@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styles from "./tile.module.css";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import Button from "../button/button";
 
-export default function Tile({ placeIndex, identity}) {
+export default function Tile({ placeIndex, identity }) {
     const firstCommaIndex = placeIndex.formattedAddress.indexOf(',');
 
     const [clicked, isClicked] = useState(false);
@@ -17,15 +18,15 @@ export default function Tile({ placeIndex, identity}) {
                 clicked ?
                     <div id={identity} className={`${styles.tile_container}`}>
                         <div className={`${styles.tile}`}>
-                        <h3 className={`${styles.tileHeader}`}>
-                            {placeIndex.displayName.text}
-                        </h3>
-                        <div>
+                            <h3 className={`${styles.tileHeader}`}>
+                                {placeIndex.displayName.text}
+                            </h3>
+                            <div>
                                 {favoriteClicked ? (
                                     <FaStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
                                 ) : (
                                     <FaRegStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
-                                )} 
+                                )}
                             </div>
                             <div className={`${styles.border}`}></div>
                             <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
@@ -49,7 +50,7 @@ export default function Tile({ placeIndex, identity}) {
                     <div id={identity} className={`${styles.tile_container}`}>
                         <div className={`${styles.tile}`}>
                             <h3> {placeIndex.name} </h3>
-                            <h3 className={`${styles.tileHeader}`}> 
+                            <h3 className={`${styles.tileHeader}`}>
                                 {placeIndex.displayName.text}
                             </h3>
                             <div>
@@ -57,12 +58,12 @@ export default function Tile({ placeIndex, identity}) {
                                     <FaStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
                                 ) : (
                                     <FaRegStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
-                                )} 
+                                )}
                             </div>
                             <div className={`${styles.border}`}></div>
                             <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
                             <div>Distance {placeIndex.distanceString}</div>
-                            <button onClick={() => isClicked(true)}> More Details </button>
+                            <Button text='More Details' onClickFunc={() => isClicked(true)}></Button>
                         </div>
                     </div>
             }

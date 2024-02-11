@@ -59,6 +59,7 @@ function App() {
       var user = userEmail.split('@')[0]
       var message = data.message;
       if (message.includes(user)) return;
+      console.log('')
       setNotification(`${data.message} - ${data.timestamp}`);
     }
     socket.on('join', callback)
