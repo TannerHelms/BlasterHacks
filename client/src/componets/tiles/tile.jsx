@@ -21,7 +21,7 @@ export default function Tile({ placeIndex }) {
                             <div> {placeIndex.location.longitude} : {placeIndex.location.latitude} </div>
                             <div>Distance {placeIndex.distanceString}</div>
                             <div> {placeIndex.nationalPhoneNumber} </div>
-                            <a href={`${placeIndex.websiteUri}`}> {placeIndex.websiteUri} </a>
+                            <a href={`${placeIndex.websiteUri}`}> `Visit {placeIndex.displayName.text}` </a>
                             {placeIndex.regularOpeningHours ? (
                                 <div>
                                     {placeIndex.regularOpeningHours.openNow ? "Open" : "Closed"}
