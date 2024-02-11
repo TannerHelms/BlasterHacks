@@ -28,9 +28,9 @@ export default function Home() {
             })
     }, [])
 
-    useEffect(() => {
-        console.log(tile)
-    }, [tile])
+    const handleRemoveItem = (id) => {
+        setTiles(currentTiles => currentTiles.filter(tile => tile.id !== id))
+    }
 
     return (
         <div className={classes.home}>
@@ -41,7 +41,7 @@ export default function Home() {
                         <div className={classes.tiles}>
                             {
                                 tile.map((place, index) => (
-                                    <Tile key={index} place={place.place} identity={index + "shelters"} select={true} tileId={place.id} onDelete={() => {setTiles(tile.filter(tile => tile.id !== place.id))}} />
+                                    <Tile key={place.id} place={place.place} identity={index + "shelters"} select={true} tileId={place.id} onDelete={(id) => handleRemoveItem(id)} />
                                 ))
                             }
 

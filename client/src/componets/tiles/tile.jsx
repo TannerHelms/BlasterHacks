@@ -37,8 +37,8 @@ export default function Tile({ place, select = false, tileId, onDelete }) {
 
     async function unhandleFavorite() {
         const docRef = doc(db, 'favorites', tileId)
-        deleteDoc(docRef).then().catch(e => {
-            onDelete();
+        deleteDoc(docRef).then(onDelete(tileId)).catch(e => {
+
         })
     }
     return (
