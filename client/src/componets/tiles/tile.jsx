@@ -1,72 +1,42 @@
 import { useState } from "react";
-import styles from "./tile.module.css";
+import classes from "./tile.module.css";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import Button from "../button/button";
+import Modal from "../modal/modal";
 
-export default function Tile({ placeIndex, identity }) {
-    const firstCommaIndex = placeIndex.formattedAddress.indexOf(',');
+export default function Tile({ place, identity }) {
+    const [favorite, setFavorite] = useState(false);
+    const [modal, setModal] = useState(false)
 
-    const [clicked, isClicked] = useState(false);
-    const [favoriteClicked, isFavoriteClicked] = useState(false);
+    const firstCommaIndex = place.formattedAddress.indexOf(',');
+    const address = place.formattedAddress.slice(0, firstCommaIndex) + " " + place.formattedAddress.slice(firstCommaIndex + 1).trim();
 
+    const name = place.name;
+    const title = place.displayName.text;
+    const distance = place.distanceString;
+    function handleButton() {
+        setModal(true)
+    }
 
-    const firstLine = placeIndex.formattedAddress.slice(0, firstCommaIndex);
-    const secondLine = placeIndex.formattedAddress.slice(firstCommaIndex + 1).trim();
+    function handleFavorite() {
+        setFavorite((old) => !old)
+    }
     return (
         <>
-            {
-                clicked ?
-                    <div id={identity} className={`${styles.tile_container}`}>
-                        <div className={`${styles.tile}`}>
-                            <h3 className={`${styles.tileHeader}`}>
-                                {placeIndex.displayName.text}
-                            </h3>
-                            <div>
-                                {favoriteClicked ? (
-                                    <FaStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
-                                ) : (
-                                    <FaRegStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
-                                )}
-                            </div>
-                            <div className={`${styles.border}`}></div>
-                            <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
-                            <div>Distance {placeIndex.distanceString}</div>
-                            <div> {placeIndex.nationalPhoneNumber} </div>
-                            <a href={`${placeIndex.websiteUri}`}> `Visit {placeIndex.displayName.text}` </a>
-                            {placeIndex.regularOpeningHours ? (
-                                <div>
-                                    {placeIndex.regularOpeningHours.openNow ? "Currently Open" : "Currently Closed"}
-                                    {placeIndex.regularOpeningHours.weekdayDescriptions.map((weekday, index) => (
-                                        <div key={index}>{weekday}</div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div>No Opening Hours Listed</div>
-                            )}
-                            <button onClick={() => isClicked(false)}> Minimize </button>
-                        </div>
-                    </div>
-                    :
-                    <div id={identity} className={`${styles.tile_container}`}>
-                        <div className={`${styles.tile}`}>
-                            <h3> {placeIndex.name} </h3>
-                            <h3 className={`${styles.tileHeader}`}>
-                                {placeIndex.displayName.text}
-                            </h3>
-                            <div>
-                                {favoriteClicked ? (
-                                    <FaStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
-                                ) : (
-                                    <FaRegStar className={`${styles.star}`} onClick={() => isFavoriteClicked(!favoriteClicked)} />
-                                )}
-                            </div>
-                            <div className={`${styles.border}`}></div>
-                            <div className={`${styles.tileAddress}`}> <h5>{firstLine}</h5> <h5>{secondLine}</h5> </div>
-                            <div>Distance {placeIndex.distanceString}</div>
-                            <Button text='More Details' onClickFunc={() => isClicked(true)}></Button>
-                        </div>
-                    </div>
-            }
+            {modal ? <Modal place={place} closeFunc={() => setModal(false)}></Modal> : ''}
+            <div className={classes.tile}>
+                {
+                    favorite ? <FaStar className={classes.star} onClick={handleFavorite} /> : <FaRegStar className={classes.star} onClick={handleFavorite} />
+                }
+
+                <h3>{title}</h3>
+                <div className={classes.border}></div>
+                <div className={classes.second}>
+                    <p>{address}</p>
+                    <p>{distance}</p>
+                </div>
+                <Button text='More Details' onClickFunc={handleButton}></Button>
+            </div>
         </>
     );
 }

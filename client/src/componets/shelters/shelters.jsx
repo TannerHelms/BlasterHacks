@@ -3,6 +3,7 @@ import { useGeo } from "../../hooks/geoFunc.js";
 import { useSearch } from "../../hooks/textSearchFunc.js";
 import Tile from "../tiles/tile";
 import { useState } from "react";
+import classes from "./shelters.module.css"
 export default function Shelters() {
     const [search, setSearch] = useState()
 
@@ -18,14 +19,14 @@ export default function Shelters() {
 
                 {
                     !search ? <button onClick={searchButtonClick}>Search</button> : (
-                        <ul>
+                        <div className={classes.tiles}>
                             {
                                 search.map((place, index) => (
-                                    <Tile key={index} placeIndex={place} identity={index + "shelters"} />
+                                    <Tile key={index} place={place} identity={index + "shelters"} />
                                 ))
                             }
 
-                        </ul>
+                        </div>
                     )
                 }
 

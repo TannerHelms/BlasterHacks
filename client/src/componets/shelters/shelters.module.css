@@ -5,7 +5,9 @@
     align-items: center;
 }
 
-.list {
-    overflow-y: auto;
-    margin: auto;
+.tiles {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
