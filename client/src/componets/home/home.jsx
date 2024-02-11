@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../../config/firebase-config.js';
 import { getAuth } from "firebase/auth";
+import { FaSpinner } from "react-icons/fa";
 
 
 export default function Home() {
@@ -37,7 +38,7 @@ export default function Home() {
             <div className={classes.list}>
                 <h2>FAVORITES</h2>
                 {
-                    !tile ? '' : (
+                    !tile ? <FaSpinner className={classes.spin} size='50px' /> : (
                         <div className={classes.tiles}>
                             {
                                 tile.map((place, index) => (
