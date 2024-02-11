@@ -12,6 +12,7 @@ import Chat from "./componets/chat/chat.jsx";
 import Shelters from "./componets/shelters/shelters.jsx";
 import { io } from "socket.io-client"
 
+export var globalID = '';
 
 function App() {
   const [signIn, setSignIn] = useState(true)
@@ -24,6 +25,7 @@ function App() {
   const [notification, setNotification] = useState()
   const [userEmail, setUserEmail] = useState('')
   const [socket, setSocket] = useState()
+  const [user, setUser] = useState()
 
 
 
@@ -35,6 +37,8 @@ function App() {
     setNotification()
     await signInWithEmailAndPassword(getAuth(), username, password)
       .then((userCredential) => {
+        globalID = userCredential.user.uid;
+        setUser(userCredential);
         setUserEmail(userCredential.user.email)
         setNotification('Login Success!')
         navSwitch('home')

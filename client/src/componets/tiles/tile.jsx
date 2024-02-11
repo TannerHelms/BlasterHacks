@@ -3,10 +3,16 @@ import classes from "./tile.module.css";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import Button from "../button/button";
 import Modal from "../modal/modal";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from '../../config/firebase-config';
+import { globalID } from "../../App";
+import { getAuth } from "firebase/auth";
 
-export default function Tile({ place, identity }) {
-    const [favorite, setFavorite] = useState(false);
+export default function Tile({ place, select = false }) {
+    const [favorite, setFavorite] = useState(select);
     const [modal, setModal] = useState(false)
+
+    console.log(place)
 
     const firstCommaIndex = place.formattedAddress.indexOf(',');
     const address = place.formattedAddress.slice(0, firstCommaIndex) + " " + place.formattedAddress.slice(firstCommaIndex + 1).trim();
@@ -18,7 +24,16 @@ export default function Tile({ place, identity }) {
         setModal(true)
     }
 
-    function handleFavorite() {
+    async function handleFavorite() {
+        try {
+            const docRef = await addDoc(collection(db, "favorites"), {
+                user_id: getAuth().currentUser.uid,
+                place: place,
+            });
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+
         setFavorite((old) => !old)
     }
     return (

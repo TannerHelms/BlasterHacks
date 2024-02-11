@@ -1,4 +1,5 @@
 import * as firebase from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import "firebase/analytics"
 
 const firebaseConfig = {
@@ -11,5 +12,6 @@ const firebaseConfig = {
     measurementId: "G-0MBSGDVNYY"
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 //firebase.analytics();
+export const db = getFirestore(app);

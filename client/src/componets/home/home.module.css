@@ -4,7 +4,14 @@
     flex-direction: column;
     align-items: center;
 }
+
+.tiles {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .list {
-    overflow-y: scroll;
-    margin: auto;
+    overflow-y: auto;
 }
